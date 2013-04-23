@@ -54,7 +54,7 @@ CalendarClient.prototype.getPrimaryCalenderId_ = function(origCallback) {
      var calendarId = json.items[0].id;
      origCallback(calendarId);
    };
-   oauth.sendSignedRequest(url, callback, request);
+   this.oauth.sendSignedRequest(url, callback, request);
 };
 
 //////////////// GET ALL EVENTS /////////////
