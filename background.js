@@ -11,7 +11,6 @@ var oauth = ChromeExOAuth.initBackgroundPage({
 var onClick = function() {
   oauth.authorize(function() {
     CalendarClient.init(oauth);
-    CalendarClient.instance.getAllEvents();
   });
 };
 
