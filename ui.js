@@ -5,7 +5,7 @@ UI.render = function(events) {
 	for (var event in events) {
 		var ul = document.getElementById("eventsList");
 		var li = document.createElement("li");
-		li.appendChild(document.createTextNode("addNotes.html?id=" + event.id));
+		li.appendChild(document.createTextNode("addNotes.html?id=" + event.eventId));
 		ul.appendChild(li);
 	}
 };

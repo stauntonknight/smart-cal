@@ -4,8 +4,8 @@ CalendarClient = function(oauth) {
 
 CalendarClient.instance = null;
 
-CalendarClient.init = function() {
-  CalendarClient.instance = new CalendarClient(chrome.extension.getBackgroundPage().oauth);
+CalendarClient.init = function(oauth) {
+  CalendarClient.instance = new CalendarClient(oauth);
 };
 
 // Get Calendar details.
@@ -22,8 +22,9 @@ CalendarClient.prototype.getCalendarDetails_ = function(origCallback, id) {
     for (var i = 0; i <jsonResp.items.length; ++i) {
       // Each event.
       var eventJson = jsonResp.items[i];
+	if (eventJson.status == "cancelled") continue;
       var participants = [];
-      var participantsJson = eventJson.attendees;
+      var participantsJson = eventJson.attendees || [];
       for (var p = 0 ; p < participantsJson.length; ++p) {
         var current = participantsJson[p];
         var isComing = 0;
