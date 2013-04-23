@@ -1,28 +1,18 @@
 {
-  "manifest_version": 2,
+	"manifest_version": 2,
 
-  "name": "easy-meets",
-  "description": "This extension demonstrates easy meetings with gmail/drive interactions.",
-  "version": "1.0",
+	"name": "easy-meets",
+	"description": "This extension demonstrates easy meetings with gmail/drive interactions.",
+	"version": "1.0",
 
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
+	"browser_action": {
+		"default_popup": "eventsList.html",
+		"default_icon": "icon.png"
+	},
 
-  "background" : {
-    "scripts": [
-      "chrome_ex_oauthsimple.js",
-      "chrome_ex_oauth.js",
-      "background.js"
-    ]
-  },
+	"background": {
+		"scripts": ["chrome_ex_oauthsimple.js", "chrome_ex_oauth.js", "background.js"]
+	},
 
-  "permissions": [
-    "tabs",
-    "background",
-    "https://www.google.com/m8/feeds/*",
-    "https://www.google.com/accounts/OAuthGetRequestToken",
-    "https://www.google.com/accounts/OAuthAuthorizeToken",
-    "https://www.google.com/accounts/OAuthGetAccessToken"
-  ]
+	"permissions": ["tabs", "background", "https://www.google.com/m8/feeds/*", "https://www.google.com/accounts/OAuthGetRequestToken", "https://www.google.com/accounts/OAuthAuthorizeToken", "https://www.google.com/accounts/OAuthGetAccessToken"]
 }
