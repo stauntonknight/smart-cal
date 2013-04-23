@@ -13,6 +13,10 @@
     "scripts": [
       "chrome_ex_oauthsimple.js",
       "chrome_ex_oauth.js",
+      "event.js",
+      "participant.js",
+      "calendarclient.js",
+      "ui.js",
       "background.js"
     ]
   },
