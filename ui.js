@@ -5,10 +5,7 @@ UI.render = function(events) {
 	for (var i in events) {
 		var dl = document.getElementById("eventsList");
 		var dt = document.createElement("dt");
-		var a = document.createElement("a");
-		a.setAttribute("href", "addNotes.html?id=" + events[i].eventId
-			+ "&title=" + events[i].title);
-		a.setAttribute("target", "_blank");
+		var a = document.createElement("div");
     var callback = function(url, fileId) {
       // Code to share this file with assignees
       // Use event.

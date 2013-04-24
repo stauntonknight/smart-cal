@@ -7,3 +7,4 @@ document.addEventListener('DOMContentLoaded', function () {
     CalendarClient.instance.getAllEvents(UI.render);
   });
 });
+
