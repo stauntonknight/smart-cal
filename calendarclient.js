@@ -22,7 +22,7 @@ CalendarClient.prototype.getCalendarDetails_ = function(origCallback, id) {
     for (var i = 0; i <jsonResp.items.length; ++i) {
       // Each event.
       var eventJson = jsonResp.items[i];
-	if (eventJson.status == "cancelled") continue;
+      if (eventJson.status == "cancelled") continue;
       var participants = [];
       var participantsJson = eventJson.attendees || [];
       for (var p = 0 ; p < participantsJson.length; ++p) {
@@ -33,9 +33,9 @@ CalendarClient.prototype.getCalendarDetails_ = function(origCallback, id) {
 
         participants.push(new Participant(current.displayName, current.email, isComing));
       }
+      var calEvent = new CalEvent(eventJson.summary, eventJson.description, participants, eventJson.start.dateTime, eventJson.end.dateTime, eventJson.id);
+      events.push(calEvent);
     }
-    var calEvent = new CalEvent(eventJson.summary, eventJson.description, participants, eventJson.start.dateTime, eventJson.end.dateTime, eventJson.id);
-    events.push(calEvent);
     origCallback(events);
   };
   oauth.sendSignedRequest(url, callback, request);
