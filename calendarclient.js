@@ -34,7 +34,7 @@ CalendarClient.prototype.getCalendarDetails_ = function(origCallback, id) {
         participants.push(new Participant(current.displayName, current.email, isComing));
       }
     }
-    var calEvent = new CalEvent(eventJson.summary, eventJson.description, participants, eventJson.start.dateTime, eventJson.end.dateTime);
+    var calEvent = new CalEvent(eventJson.summary, eventJson.description, participants, eventJson.start.dateTime, eventJson.end.dateTime, eventJson.id);
     events.push(calEvent);
     origCallback(events);
   };

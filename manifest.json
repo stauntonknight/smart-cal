@@ -9,6 +9,13 @@
 		"default_popup": "eventsList.html",
 		"default_icon": "icon.png"
 	},
+	
+	"content_scripts": [
+	    {
+	      "matches": ["http://www.google.com/calendar/*"],
+	      "js": ["notesButtonToCalendar.js"]
+	    }
+	  ],
 
   "background" : {
     "scripts": [
