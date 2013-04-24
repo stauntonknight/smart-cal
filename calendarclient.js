@@ -95,6 +95,7 @@ CalendarClient.prototype.updateCalendarEvent = function(calEvent, url) {
     'eventId': calEvent.eventId
   };
   var body = {
+	'summary': calEvent.title,
     'description': descrip,
     'end': {
       'dateTime': calEvent.endTime
