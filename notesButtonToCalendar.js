@@ -1,3 +1,13 @@
+if (document.getElementById() != null){
+	var elems = document.getElementsByTagName('div');
+	for (var i in elems) {
+		if(elems[i].getAttribute('class') == "ui-sch-schmedit") {
+			addButton();
+		}
+	}
+}
+
+function addButton(){
 var form = createElement("form");
 form.setAttribute("method", "get");
 form.setAttribute("action", "addNotes.html");
@@ -17,3 +27,4 @@ var n = document.getElementByTagName('table')[0].rows.length();
 var row = document.getElementByTagName('table')[0].insertRow(n);
 var cell = row.insertCell(0);
 cell.appendChild(form);
+}
