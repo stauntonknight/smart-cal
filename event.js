@@ -1,4 +1,4 @@
-var CalEvent = function(title, description, participants, startTime, endTime, eventId) {
+var CalEvent = function(title, description, participants, startTime, endTime, eventId, calId) {
   this.title = title;
   this.description = description;
   this.participants = participants;
@@ -9,4 +9,6 @@ var CalEvent = function(title, description, participants, startTime, endTime, ev
 
   // Event id, not filled yet.
   this.eventId = eventId;
+
+  this.calId = calId;
 };

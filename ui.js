@@ -5,11 +5,15 @@ UI.render = function(events) {
 	for (var i in events) {
 		var ul = document.getElementById("eventsList");
 		var li = document.createElement("li");
-		var a = document.createElement("a");
-		a.setAttribute("href", "addNotes.html?id=" + events[i].eventId
-			+ "&title=" + events[i].title);
-		a.setAttribute("target", "_blank")
+		var a = document.createElement("div");
 		a.appendChild(document.createTextNode(events[i].title));
+    var bp = chrome.extension.getBackgroundPage();
+    var callback = function(calEvent) {
+      if (calEvent) {
+        // Share it with docs and create a 
+      }
+    };
+    DocsClient.instance.createDocumentForEvent(events[i].calId, events[i].eventId, callback);
 		li.appendChild(a);
 		ul.appendChild(li);
 	}

@@ -24,6 +24,7 @@
       "event.js",
       "participant.js",
       "calendarclient.js",
+      "docsclient.js",
       "ui.js",
       "background.js"
     ]
