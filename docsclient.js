@@ -8,29 +8,19 @@ DocsClient.init = function(oauth) {
 };
 
 DocsClient.prototype.getCreateRequestParams = function(title) {
-  const boundary = '-------314159265358979323846';
-  const delimiter = "\r\n--" + boundary + "\r\n";
-  const close_delim = "\r\n--" + boundary + "--";
-
   var metadata = {
     'title': title,
-    'mimeType': 'application/vnd.google-apps.document'
+    'mimeType': 'text/plain',
   };
-
-  var contentType = 'application/vnd.google-apps.document';
-  var base64Data = '';
-  var multipartRequestBody = delimiter + 
-    'Content-Type: application/json\r\n\r\n' + JSON.stringify(metadata) +
-     delimiter + 'Content-Type: ' + contentType + '\r\n' +
-     'Content-Transfer-Encoding: base64\r\n' + '\r\n' + base64Data +
-     close_delim;
   var request = {
-    'parameters': {'uploadType': 'multipart'},
     'method': 'POST',
     'headers': {
-        'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+        'Content-Type': 'application/json'
      },
-    'body': multipartRequestBody
+    'body': JSON.stringify(metadata),
+    'parameters': {
+        'convert': true
+     }
   };
   return request;
 };
@@ -39,19 +29,57 @@ DocsClient.prototype.getCreateRequestParams = function(title) {
 // Create a document with title, share it with assignees and Callback with URL.
 DocsClient.prototype.createDocumentForEvent_ = function(calEvent, originalCallback) {
   var assignees = calEvent.participants;
-  var url = 'https://www.googleapis.com/upload/drive/v2/files';
+  var url = 'https://www.googleapis.com/drive/v2/files';
   var callback = function(resp) {
-    originalCallback(resp.alternateLink);
+    var respJson = JSON.parse(resp);
+    originalCallback(respJson.id, respJson.alternateLink);
   };
   this.oauth.sendSignedRequest(url, callback, this.getCreateRequestParams(calEvent.title));
 };
 
 
-// callback calls back with a url.
+// callback with a url and fileId.
 DocsClient.prototype.createDocumentForEvent = function(calId, id, callback) {
   // Get meeting details. 
-  var eventDetails = function(resp, callback) {
-    this.createDocumentForEvent_(resp, callback);
+  var onEventDetails = function(calEvent) {
+    this.createDocumentForEvent_(calEvent, callback);
   };
-  CalendarClient.instance.getEventDetails(calId, id, eventDetails.bind(this));
+  CalendarClient.instance.getEventDetails(calId, id, onEventDetails.bind(this));
+};
+
+
+DocsClient.prototype.createAddPermissionsRequest = function(email, fileId, title) {
+  var message;
+  if (title)  {
+    message = 'I have created a metting notes for ' + title;
+  } else {
+    message = 'Meeting notes';
+  }
+  var params = {
+    'fileId': fileId,
+    'emailMessage' : message
+  };
+  var bodyJson = {
+    'role': 'writer',
+    'type': 'user',
+    'value': email
+  };
+  var request = {
+    'method': 'POST',
+    'body': JSON.stringify(bodyJson),
+    'headers': {
+        'Content-Type': 'application/json'
+     },
+    'parameters': params
+  };
+  return request;
+};
+
+
+DocsClient.prototype.addPermissionsParams = function(fileId, email, title) {
+  var url = 'https://www.googleapis.com/drive/v2/files/' + fileId + '/permissions';
+  var callback = function(resp) {
+    console.log(resp);
+  };
+  this.oauth.sendSignedRequest(url, callback, this.createAddPermissionsRequest(email, fileId, title));
 };

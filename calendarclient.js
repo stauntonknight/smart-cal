@@ -83,3 +83,30 @@ CalendarClient.prototype.getAllEvents = function(callback) {
   var fetchEvents = this.getCalendarDetails_.bind(this, callback); 
   this.getPrimaryCalenderId_(fetchEvents);
 };
+
+
+/// UPDATE CLAENDAR EVENT WITH A URL ///
+CalendarClient.prototype.updateCalendarEvent = function(calEvent, url) {
+  var descrip = calEvent.description || '';
+  descrip += "\n **Meeting notes setup by SmartMeet**" + url;
+  var url = 'https://www.googleapis.com/calendar/v3/calendars/' + calEvent.calId + '/events/' + calEvent.eventId;
+  var params = {
+    'calendarId' : calEvent.calId,
+    'eventId': calEvent.eventId
+  };
+  var body = {
+    'description': descrip
+  };
+  var request = {
+    'body': JSON.stringify(body),
+    'parameters': params,
+    'method': 'PUT',
+    'headers': {
+        'Content-Type': 'application/json'
+     }
+  };
+  var callback = function(resp) {
+    console.log(resp);
+  };
+  this.oauth.sendSignedRequest(url, callback, request);
+};
