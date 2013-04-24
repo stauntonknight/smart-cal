@@ -18,6 +18,7 @@ var CalEvent = function(title, description, participants, startTime, endTime, ev
     var index = this.description.indexOf(magicString);
     if (index != -1) {
       this.meetingNotesUrl = this.description.substr(index + magicString.length + 1);
+      this.description = this.description.substr(0, index - 1);
     }
   }
 };
