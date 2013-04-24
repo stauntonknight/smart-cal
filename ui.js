@@ -1,5 +1,8 @@
 var UI = {};
 // Takes in a list of events.
+
+
+
 UI.render = function(events) {
 	// List the events.
 	for (var i in events) {
@@ -11,7 +14,7 @@ UI.render = function(events) {
       // Use event.
     };
     var func = func1.bind(this, events[i], callback);
-		if (a.addEventListener) {
+	if (a.addEventListener) {
       a.addEventListener("click", func, false);
     } else {
       a.attachEvent('onclick', func);
@@ -41,5 +44,24 @@ UI.render = function(events) {
 
 // Callback will be called with url and fileid.
 function func1(calEvent, callback) {
+	alert("jkds");
+	
+	var callback = function(url, fileId, calEvent.attendees) {
+		for (var i in participants) {
+
+			var body = {
+				'value': participants[i].emai,
+				'type': "user",
+				'role': "writer"
+			};
+			var request = gapi.client.drive.permissions.insert({
+			    'fileId': fileId,
+			    'resource': body
+			  }); 
+			request.execute(function(resp) {});
+		}
+	};
+	
   DocsClient.instance.createDocumentForEvent(calEvent.calId, calEvent.eventId, callback);
+
 }
