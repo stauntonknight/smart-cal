@@ -14,3 +14,8 @@ UI.render = function(events) {
 		ul.appendChild(li);
 	}
 };
+
+
+// DocsClient.instance.createDocument(title, function(url) {
+//   // Create a link with anchor <a href="url" target="_>Meeting notes for Title</a>
+// });
